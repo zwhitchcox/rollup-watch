@@ -120,6 +120,12 @@ export default function watch ( rollup, options ) {
 							duration: Date.now() - start,
 							initial
 						});
+					}, error => {
+						console.error(error);
+						emitter.emit( 'event', {
+							code: 'ERROR',
+							error
+						});
 					})
 					.then( () => {
 						building = false;
