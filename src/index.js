@@ -82,8 +82,10 @@ export default function watch ( rollup, options ) {
 				emitter.emit( 'event', { code: 'BUILD_START' });
 
 				building = true;
+				if (typeof rollup !== 'function')
+					rollup = rollup.rollup
 
-				return rollup.rollup( opts )
+				return rollup( opts )
 					.then( bundle => {
 						// Save off bundle for re-use later
 						cache = bundle;
@@ -117,11 +119,6 @@ export default function watch ( rollup, options ) {
 							code: 'BUILD_END',
 							duration: Date.now() - start,
 							initial
-						});
-					}, error => {
-						emitter.emit( 'event', {
-							code: 'ERROR',
-							error
 						});
 					})
 					.then( () => {
