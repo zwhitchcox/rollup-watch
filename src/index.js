@@ -121,7 +121,7 @@ export default function watch ( rollup, options ) {
 							initial
 						});
 					}, error => {
-						if (/\/rollup$/.test(process.argv[0]))
+						if (!/\/rollup$/.test(process.argv[0]))
 							console.error(error)
 						emitter.emit( 'event', {
 							code: 'ERROR',
